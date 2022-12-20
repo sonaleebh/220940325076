@@ -1,0 +1,63 @@
+1. What is the difference between truncate, delete, drop?
+
+Truncate: 
+Truncate is a DDL command.
+The DROP Command drops the complete table from the database.
+We cannot get the complete table deleted from the database using the ROLLBACK command.
+Where clause can not be used in Truncate statement.
+Truncate command records transaction log of the table not all the rows
+The TRUNCATE command works faster than the DROP command and DELETE command because it deletes all the records from the table without any condition.
+We need table ALTER permission to use the TRUNCATE command.
+TRUNCATE TABLE table_name;
+
+
+Delete: 
+Delete is a DML command.
+The DELETE command deletes one or more existing records from the table in the database.
+We can restore any deleted row or multiple rows from the database using the ROLLBACK command.
+We can use the where clause in delete command.
+Delete command records transaction logs for each row.
+The DELETE command performs slower than the DROP command and TRUNCATE command as it deletes one or more rows based on a specific condition.
+DELETE permission is required to delete the rows of the table.
+DELETE FROM table_name WHERE condition;
+
+
+Drop: 
+Drop is a DML command
+The DROP Command drops the complete table from the database.
+We cannot get the complete table deleted from the database using the ROLLBACK command.
+Where clause can not be used in Drop statement.
+Drop command records transaction logs for table only.
+The DROP Command has faster performance than DELETE Command but not as compared to the Truncate Command because the DROP command deletes the table from the database after deleting the rows.
+We need ALTER permission on the schema to which the table belongs and CONTROL permission on the table to use the DROP command.
+DROP TABLE table_name;
+
+
+2. What are alias in MySQL?
+—-> Sql aliases are used to give a temporary name to a table or column which makes column names and query more readable and feasible to write.Existance of alias is only for the duration of the query. It can be created with with or without AS keyword.
+
+
+
+3. How do you display even rows of the any table?
+—>
+Using Row_Number() function:
+
+select * from (SELECT *,   
+    ROW_NUMBER() OVER(order BY Year) AS row_num  
+FROM Person ) even where row_num %2=0;
+
+
+
+
+4. How can you remove duplicates from a table(distinct and other way)
+→  We can remove duplicates from table using 3 ways:
+Using Distinct keyword
+Using inner join
+Using Rown_number()
+
+5. How you can find 5th max salary?(Do it by all 3 ways)
+—> 1.  Select min(salary) from (select distinct salary from emp order by salary desc) where rownum<5;
+       2. Using Dense_Rank() function:   Select salary ,dense_rank() over (order by salary Desc) rank from emp) where rank=5;
+       3. Using limit keyword:  Select salary from emp order by salary desc limit 4,1;        
+
+
